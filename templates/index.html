@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Poem Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's write a poem:</h1>
+    <form method="POST" enctype="multipart/form-data"> 
+        <input type="text" name="text_input" placeholder="Describe your inspiration..." style="width: 300px;">
+        <input type="file" name="image_input" accept="image/*"> 
+        <button type="submit">Generate Poem</button>
+    </form>
+
+    <div id="loading" style="display: none;"> 
+        Generating your poem... 
+    </div>
+
+    {% if poem %}
+        <h2>Your Poem:</h2>
+        <p>{{ poem }}</p>
+    {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <script>
+        const form = document.querySelector('form');
+        const loadingIndicator = document.getElementById('loading');
+
+        form.addEventListener('submit', () => {
+            loadingIndicator.style.display = 'block'; 
+        });
+    </script>
+</body>
+</html>
