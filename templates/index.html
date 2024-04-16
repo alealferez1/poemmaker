@@ -15,7 +15,7 @@
     <form method="POST" enctype="multipart/form-data"> 
         <input type="text" name="text_input" placeholder="Describe your inspiration..." style="width: 300px;">
         <input type="file" name="image_input" accept="image/*"> 
-        <button type="submit">Generate Poem</button>
+        <button type="button" id="previewButton">Preview Image</button> <div id="imagePreview"></div> <button type="submit">Generate Poem</button>
     </form>
 
     <div id="loading" style="display: none;"> 
@@ -36,6 +36,23 @@
         form.addEventListener('submit', () => {
             loadingIndicator.style.display = 'block'; 
         });
+
+        // Image preview functionality
+        const previewButton = document.getElementById('previewButton');
+        const imagePreview = document.getElementById('imagePreview');
+        const imageInput = document.getElementById('image_input');
+
+        previewButton.addEventListener('click', () => {
+          const file = imageInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              imagePreview.innerHTML = `<img src="${event.target.result}" width="200px" />`;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
     </script>
 </body>
 </html>
